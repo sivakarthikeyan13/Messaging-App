@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "733003601297",
+    "firebase_url": "https://messaging-app-12da3.firebaseio.com",
+    "project_id": "messaging-app-12da3",
+    "storage_bucket": "messaging-app-12da3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:733003601297:android:06b6153a086548fee2f630",
+        "android_client_info": {
+          "package_name": "com.siva1312.messagingapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "733003601297-7vvu7oi2gncea6gonsbka1ks8v066e9e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_alsm2aAhRhgSKjr3fz90s8YxbkujTBk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "733003601297-7vvu7oi2gncea6gonsbka1ks8v066e9e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
