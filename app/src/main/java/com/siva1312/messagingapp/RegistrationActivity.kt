@@ -61,13 +61,14 @@ class RegistrationActivity : AppCompatActivity() {
 
         register.setOnClickListener {
             signUp()
+
         }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == 0 && resultCode == Activity.RESULT_OK && data != null){
+        if (requestCode == 0 && resultCode == Activity.RESULT_OK && data != null) {
             Log.d(TAG, "Photo is selected")
 
             photoUri = data.data
@@ -78,23 +79,27 @@ class RegistrationActivity : AppCompatActivity() {
         }
     }
 
-    private fun signUp(){
+    private fun signUp() {
         var rName = name.text.toString()
         var rEmail = email.text.toString()
         var rPassword = password.text.toString()
         var rCpassword = confirmPassword.text.toString()
-        if (rName.isEmpty() || rEmail.isEmpty() || rPassword.isEmpty()){
-            Toast.makeText(this, "Enter all the details",
-                Toast.LENGTH_SHORT).show()
+        if (rName.isEmpty() || rEmail.isEmpty() || rPassword.isEmpty()) {
+            Toast.makeText(
+                this, "Enter all the details",
+                Toast.LENGTH_SHORT
+            ).show()
             return
         }
-        if (rPassword  != rCpassword) {
-            Toast.makeText(this, "Password does not match",
-                Toast.LENGTH_SHORT).show()
+        if (rPassword != rCpassword) {
+            Toast.makeText(
+                this, "Password does not match",
+                Toast.LENGTH_SHORT
+            ).show()
             return
         }
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(rEmail, rPassword)
-            .addOnCompleteListener{
+            .addOnCompleteListener {
                 if (it.isSuccessful) {
                     Log.d(TAG, "createUserWithEmail:success")
                     Toast.makeText(
@@ -105,15 +110,17 @@ class RegistrationActivity : AppCompatActivity() {
                     uploadProfilePic()
                 } else return@addOnCompleteListener
             }
-            .addOnFailureListener{
+            .addOnFailureListener {
                 Log.d(TAG, "Registration Failed")
-                Toast.makeText(this, "Failed to Register: ${it.message}",
-                    Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this, "Failed to Register: ${it.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
     }
 
-    private fun uploadProfilePic(){
-        if (photoUri==null) return
+    private fun uploadProfilePic() {
+        if (photoUri == null) return
 
         val filename = UUID.randomUUID().toString()
         val ref = FirebaseStorage.getInstance().getReference("/images/$filename")
@@ -127,22 +134,27 @@ class RegistrationActivity : AppCompatActivity() {
                     saveUserToFirebaseDatabase(it.toString())
                 }
             }
-            .addOnFailureListener{
+            .addOnFailureListener {
                 Log.d(TAG, "failed to add image: ${it.message}")
             }
     }
 
-    private fun saveUserToFirebaseDatabase(profilePicUrl: String){
-        val uid = FirebaseAuth.getInstance().uid ?:""
+    private fun saveUserToFirebaseDatabase(profilePicUrl: String) {
+        val uid = FirebaseAuth.getInstance().uid ?: ""
         val ref = FirebaseDatabase.getInstance().getReference("/users/$uid")
-        
+
         val user = User(uid, name.text.toString(), profilePicUrl)
 
         ref.setValue(user)
             .addOnSuccessListener {
                 Log.d(TAG, "user saved to firebase Database")
+
+                val intent = Intent(this, RecentMessagesActivity::class.java)
+                //clears all activity in task so on clicking back button exits app
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
             }
-            .addOnFailureListener{
+            .addOnFailureListener {
                 Log.d(TAG, "failed to save user to firebase Database: ${it.message}")
             }
     }

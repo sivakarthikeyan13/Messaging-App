@@ -52,24 +52,31 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
-    private fun signIn(){
+    private fun signIn() {
         var lEmail = email.text.toString()
         var lPassword = password.text.toString()
-        if (lEmail.isEmpty() || lPassword.isEmpty()){
-            Toast.makeText(this, "Enter all the details",
-                Toast.LENGTH_SHORT).show()
+        if (lEmail.isEmpty() || lPassword.isEmpty()) {
+            Toast.makeText(
+                this, "Enter all the details",
+                Toast.LENGTH_SHORT
+            ).show()
             return
         }
         auth.signInWithEmailAndPassword(lEmail, lPassword)
-            .addOnCompleteListener{
-                if (it.isSuccessful){
+            .addOnCompleteListener {
+                if (it.isSuccessful) {
                     Log.d(TAG, "loginUserWithEmail:success")
-                }else return@addOnCompleteListener
+                    val intent = Intent(this, RecentMessagesActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intent)
+                } else return@addOnCompleteListener
             }
-            .addOnFailureListener{
+            .addOnFailureListener {
                 Log.d(TAG, "Login Failed")
-                Toast.makeText(this, "Failed to Login: ${it.message}",
-                    Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this, "Failed to Login: ${it.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
 
     }
