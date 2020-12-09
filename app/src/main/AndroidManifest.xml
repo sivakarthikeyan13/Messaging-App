@@ -13,9 +13,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ChatLogActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".RecentMessagesActivity" />
+        </activity>
         <activity android:name=".RecentMessagesActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -25,8 +31,9 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity android:name=".NewMessageActivity">
-            <meta-data android:name="android.support.PARENT_ACTIVITY"
-                android:value=".RecentMessagesActivity"/>
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".RecentMessagesActivity" />
         </activity>
     </application>
 

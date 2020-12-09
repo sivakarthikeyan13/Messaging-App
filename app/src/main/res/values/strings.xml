@@ -2,7 +2,7 @@
     <string name="app_name">Messaging App</string>
     <string name="new_register"><u>Don\'t have a account? register</u></string>
     <string name="forgot_password"><u>forgotPassword?</u></string>
-    <string name="password">Password(min. 4 characters)</string>
+    <string name="password">Password</string>
     <string name="login">login</string>
     <string name="email">Email</string>
     <string name="name">name(min. 3 characters)</string>

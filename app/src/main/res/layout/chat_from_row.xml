@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp">
+
+    <TextView
+        android:id="@+id/txtFromRow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:padding="16dp"
+        android:text="This is their message and may the force be with you"
+        android:background="@drawable/edit_text_box"
+        android:maxWidth="240dp"
+        app:layout_constraintStart_toEndOf="@+id/imgFromPic"
+        app:layout_constraintTop_toTopOf="@+id/imgFromPic" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgFromPic"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        app:civ_border_color="@android:color/black"
+        app:civ_border_width="2dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/dialog_frame" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -19,6 +19,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
+import com.siva1312.messagingapp.models.User
 import kotlinx.android.synthetic.main.activity_registration.*
 import java.util.*
 
@@ -161,4 +162,3 @@ class RegistrationActivity : AppCompatActivity() {
 
 }
 
-data class User(val uid: String, val userName: String, val profilePicUrl: String)
