@@ -12,40 +12,24 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.siva1312.messagingapp.R
+import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
 
-    lateinit var email: EditText
-    lateinit var password: EditText
-    lateinit var login: Button
-    lateinit var forgotPassword: TextView
-    lateinit var register: TextView
-
-    private val TAG = "LoginActivity"
-    private lateinit var auth: FirebaseAuth
+    companion object {
+        const val TAG = "LoginActivity"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        email = findViewById(R.id.etEmail)
-        password = findViewById(R.id.etPassword)
-        login = findViewById(R.id.btLogin)
-        forgotPassword = findViewById(R.id.txtForgotPassword)
-        register = findViewById(R.id.txtRegister)
-
-        auth = Firebase.auth
-
-        Log.d(TAG, "email is$email")
-        Log.d(TAG, "password is$password")
-
-        login.setOnClickListener {
+        btLogin.setOnClickListener {
             signIn()
         }
 
-        forgotPassword.setOnClickListener { }
 
-        register.setOnClickListener {
+        txtRegister.setOnClickListener {
             val intent = Intent(this, RegistrationActivity::class.java)
             startActivity(intent)
         }
@@ -54,16 +38,18 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun signIn() {
-        var lEmail = email.text.toString()
-        var lPassword = password.text.toString()
-        if (lEmail.isEmpty() || lPassword.isEmpty()) {
+        val email = etEmail.text.toString()
+        val password = etPassword.text.toString()
+        Log.d(TAG, "email is$email")
+        Log.d(TAG, "password is$password")
+        if (email.isEmpty() || password.isEmpty()) {
             Toast.makeText(
                 this, "Enter all the details",
                 Toast.LENGTH_SHORT
             ).show()
             return
         }
-        auth.signInWithEmailAndPassword(lEmail, lPassword)
+        Firebase.auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener {
                 if (it.isSuccessful) {
                     Log.d(TAG, "loginUserWithEmail:success")

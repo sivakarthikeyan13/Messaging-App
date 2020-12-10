@@ -17,38 +17,24 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.siva1312.messagingapp.R
 import com.siva1312.messagingapp.models.User
+import kotlinx.android.synthetic.main.activity_registration.*
 import java.util.*
 
 class RegistrationActivity : AppCompatActivity() {
 
-    lateinit var profilePic: Button
-    lateinit var imgProfilePic: ImageView
-    lateinit var name: EditText
-    lateinit var email: EditText
-    lateinit var password: EditText
-    lateinit var confirmPassword: EditText
-    lateinit var register: Button
+    lateinit var name: String
+    companion object{
+        const val TAG = "RegistrationActivity"
+    }
 
-    private val TAG = "RegistrationActivity"
+
     var photoUri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registration)
 
-        profilePic = findViewById(R.id.btnProfilePic)
-        imgProfilePic = findViewById(R.id.imgProfilePic)
-        name = findViewById(R.id.etName)
-        email = findViewById(R.id.etEmail)
-        password = findViewById(R.id.etRegisterPassword)
-        confirmPassword = findViewById(R.id.etRegisterConfirmPassword)
-        register = findViewById(R.id.btRegister)
-
-
-        Log.d(TAG, "email is$email")
-        Log.d(TAG, "password is$password")
-
-        profilePic.setOnClickListener {
+        btnProfilePic.setOnClickListener {
             Log.d(TAG, "photo selector")
 
             val intent = Intent(Intent.ACTION_PICK)
@@ -56,9 +42,8 @@ class RegistrationActivity : AppCompatActivity() {
             startActivityForResult(intent, 0)
         }
 
-        register.setOnClickListener {
+        btRegister.setOnClickListener {
             signUp()
-
         }
     }
 
@@ -72,30 +57,34 @@ class RegistrationActivity : AppCompatActivity() {
             val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, photoUri)
             val bitmapDrawable = BitmapDrawable(bitmap)
             imgProfilePic.setImageDrawable(bitmapDrawable)
-            profilePic.alpha = 0f
+            btnProfilePic.alpha = 0f
         }
     }
 
     private fun signUp() {
-        var rName = name.text.toString()
-        var rEmail = email.text.toString()
-        var rPassword = password.text.toString()
-        var rCpassword = confirmPassword.text.toString()
-        if (rName.isEmpty() || rEmail.isEmpty() || rPassword.isEmpty()) {
+         name = etName.text.toString()
+        val email = etEmail.text.toString()
+        val password = etRegisterPassword.text.toString()
+        val confirmPassword = etRegisterConfirmPassword.text.toString()
+
+        Log.d(TAG, "email is$email")
+        Log.d(TAG, "password is$password")
+
+        if (name.isEmpty() || email.isEmpty() || email.isEmpty()) {
             Toast.makeText(
                 this, "Enter all the details",
                 Toast.LENGTH_SHORT
             ).show()
             return
         }
-        if (rPassword != rCpassword) {
+        if (password != confirmPassword) {
             Toast.makeText(
                 this, "Password does not match",
                 Toast.LENGTH_SHORT
             ).show()
             return
         }
-        FirebaseAuth.getInstance().createUserWithEmailAndPassword(rEmail, rPassword)
+        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener {
                 if (it.isSuccessful) {
                     Log.d(TAG, "createUserWithEmail:success")
@@ -140,7 +129,7 @@ class RegistrationActivity : AppCompatActivity() {
         val uid = FirebaseAuth.getInstance().uid ?: ""
         val ref = FirebaseDatabase.getInstance().getReference("/users/$uid")
 
-        val user = User(uid, name.text.toString(), profilePicUrl)
+        val user = User(uid, name, profilePicUrl)
 
         ref.setValue(user)
             .addOnSuccessListener {

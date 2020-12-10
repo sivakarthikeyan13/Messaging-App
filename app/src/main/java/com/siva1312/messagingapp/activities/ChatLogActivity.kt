@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.activity_chat_log.*
 class ChatLogActivity : AppCompatActivity() {
 
     companion object {
-        val TAG = "ChatLog"
+        const val TAG = "ChatLog"
     }
 
     val adapter = GroupAdapter<GroupieViewHolder>()
