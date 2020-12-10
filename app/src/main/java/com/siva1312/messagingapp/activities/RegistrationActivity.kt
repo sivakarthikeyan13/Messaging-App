@@ -1,4 +1,4 @@
-package com.siva1312.messagingapp
+package com.siva1312.messagingapp.activities
 
 import android.app.Activity
 import android.content.Intent
@@ -12,15 +12,11 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.core.graphics.drawable.toBitmap
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.ktx.storage
+import com.siva1312.messagingapp.R
 import com.siva1312.messagingapp.models.User
-import kotlinx.android.synthetic.main.activity_registration.*
 import java.util.*
 
 class RegistrationActivity : AppCompatActivity() {

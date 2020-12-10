@@ -1,4 +1,4 @@
-package com.siva1312.messagingapp
+package com.siva1312.messagingapp.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,17 +8,14 @@ import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.ktx.Firebase
+import com.siva1312.messagingapp.R
 import com.siva1312.messagingapp.models.ChatMessage
 import com.siva1312.messagingapp.models.User
-import com.squareup.picasso.Picasso
+import com.siva1312.messagingapp.views.ChatFromItem
+import com.siva1312.messagingapp.views.ChatToItem
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
-import com.xwray.groupie.Item
 import kotlinx.android.synthetic.main.activity_chat_log.*
-import kotlinx.android.synthetic.main.chat_from_row.view.*
-import kotlinx.android.synthetic.main.chat_to_row.view.*
-import kotlinx.android.synthetic.main.recycler_new_message_row.view.*
 
 class ChatLogActivity : AppCompatActivity() {
 
@@ -58,12 +55,15 @@ class ChatLogActivity : AppCompatActivity() {
                     Log.d(TAG, chatMessage.text)
                     //every time we add to the adapter, groupie dependency refreshes the adapter
                     if (chatMessage.fromId == FirebaseAuth.getInstance().uid) {
-                        val currentUser = RecentMessagesActivity.currentUser
+                        val currentUser =
+                            RecentMessagesActivity.currentUser
                         adapter.add(ChatToItem(chatMessage.text, currentUser!!))
                     } else {
                         adapter.add(ChatFromItem(chatMessage.text, fromUser!!))
                     }
                 }
+
+                recyclerChatLog.scrollToPosition(adapter.itemCount - 1) //view get scrolled to last message when opened.
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -106,38 +106,16 @@ class ChatLogActivity : AppCompatActivity() {
             recyclerChatLog.scrollToPosition(adapter.itemCount-1) // when a new message is sent the chat log scrolls to the last message.
         }
         toReference.setValue(chatMessage)
+
+        val recentMessageReference = FirebaseDatabase.getInstance().getReference("/recent-messages/${fromId}/${toId}")
+        recentMessageReference.setValue(chatMessage)
+
+        val recentMessageToReference = FirebaseDatabase.getInstance().getReference("/recent-messages/${toId}/${fromId}")
+        recentMessageToReference.setValue(chatMessage)
     }
 }
 
-//to display the chats of the sender
-class ChatFromItem(val text: String, val fromUser: User) : Item<GroupieViewHolder>() {
-    override fun bind(viewHolder: GroupieViewHolder, position: Int) {
-        viewHolder.itemView.txtFromRow.text = text
 
-        //load profile pic in the chat
-        Picasso.get().load(fromUser.profilePicUrl).error(R.drawable.ic_person)
-            .into(viewHolder.itemView.imgFromPic)
-    }
-
-    override fun getLayout(): Int {
-        return R.layout.chat_from_row
-    }
-}
-
-//to display your chat messages
-class ChatToItem(val text: String, val currentUser: User) : Item<GroupieViewHolder>() {
-    override fun bind(viewHolder: GroupieViewHolder, position: Int) {
-        viewHolder.itemView.txtToRow.text = text
-
-        //load profile pic in the chat
-        Picasso.get().load(currentUser.profilePicUrl).error(R.drawable.ic_person)
-            .into(viewHolder.itemView.imgToPic)
-    }
-
-    override fun getLayout(): Int {
-        return R.layout.chat_to_row
-    }
-}
 
 
 
