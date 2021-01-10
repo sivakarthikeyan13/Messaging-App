@@ -17,8 +17,8 @@ This App includes the following features:
 This App is currently built to work with Android API 29(Android 10).However, the apps minimum SDK support is 18(Android 4.3 Jelly Bean).
 ___
 ## Acknowledgements
-Dependencies used in this project
-1. [groupie](https://github.com/lisawray/groupie)
-2. [picasso](https://github.com/square/picasso)
-3. [circle image view](https://github.com/hdodenhof/CircleImageView)
+Dependencies used in this project includes
+- [groupie](https://github.com/lisawray/groupie)
+- [picasso](https://github.com/square/picasso)
+- [circle image view](https://github.com/hdodenhof/CircleImageView)
 ___
