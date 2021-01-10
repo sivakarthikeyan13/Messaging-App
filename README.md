@@ -19,6 +19,6 @@ ___
 ## Acknowledgements
 Dependencies used in this project
 1. [groupie](https://github.com/lisawray/groupie)
-2. picasso
-3. circle image view
+2. [picasso](https://github.com/square/picasso)
+3. [circle image view](https://github.com/hdodenhof/CircleImageView)
 ___
