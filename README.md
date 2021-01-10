@@ -18,7 +18,7 @@ This App is currently built to work with Android API 29(Android 10).However, the
 ___
 ## Acknowledgements
 Dependencies used in this project
-1. groupie
+1. [groupie](https://github.com/lisawray/groupie)
 2. picasso
 3. circle image view
 ___
