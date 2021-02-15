@@ -1,6 +1,6 @@
 # Messaging-App
 ## About The Project
-This is a Android Messaging App that allows the user to create a account using their email id and to chat with other users of the App. All the data, chats and profile pic of the users are stored in a firebase database
+This is an Android Messaging App that allows the user to create a account using their email id and to chat with other users of the App. All the data, chats and profile pic of the users are stored in a firebase database
 
 ### Built With
 This App is entirly coded with ***Kotlin*** using __Android Studio__.
